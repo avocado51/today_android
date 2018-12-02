@@ -31,7 +31,11 @@
         android:layout_marginLeft="2dp"
         android:layout_toRightOf="@id/community_user_id_txt"
         android:layout_marginTop="16dp"
+<<<<<<< HEAD
         android:background="@drawable/img_sns_emotion_good_2_20_px"
+=======
+        android:src="@drawable/img_sns_emotion_good_2_20_px"
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
 
         />
     <TextView

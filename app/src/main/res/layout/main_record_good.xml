@@ -89,7 +89,10 @@ android:background="@drawable/costume_spinner"
             />
 
         <TextView
+<<<<<<< HEAD
             android:layout_gravity="center_horizontal"
+=======
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
             android:id="@+id/btn_main_deposit"
             android:layout_marginLeft="27dp"
             android:layout_width="wrap_content"
@@ -102,7 +105,10 @@ android:background="@drawable/costume_spinner"
             android:layout_marginTop="15.5dp"
             />
         <TextView
+<<<<<<< HEAD
             android:layout_gravity="center_horizontal"
+=======
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
             android:id="@+id/btn_do_not_deposit"
             android:layout_marginLeft="31dp"
             android:layout_width="wrap_content"

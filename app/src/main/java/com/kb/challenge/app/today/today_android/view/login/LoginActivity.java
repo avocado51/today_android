@@ -88,8 +88,14 @@ public class LoginActivity extends AppCompatActivity implements Init {
 
     public void signIn() {
         Log.v("login process", "login process!!!");
+<<<<<<< HEAD
 
         final LoginData signupData = new LoginData(login_edit_id.getText().toString(), login_edit_passwd.getText().toString(), "dSc_rUvtnwY:APA91bH9RXLXj54TSao1AMFKjllo5R3SbXkzmW6Spj8tvjucp0wH-MzKbA9Hq2YAXBLcXcCEaYO0SMnfqanOfyk_5g4fSp0l4uYG4ujwisoGe9kdXmRN5ZCOCx4Sa_wk-O3sN9dZjhGD");
+=======
+        String fcm_token = FirebaseInstanceId.getInstance().getToken();
+
+        final LoginData signupData = new LoginData(login_edit_id.getText().toString(), login_edit_passwd.getText().toString(), fcm_token);
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
         Call<LoginResponse> requestDetail = networkService.login(signupData);
         requestDetail.enqueue(new Callback<LoginResponse>() {
             @Override

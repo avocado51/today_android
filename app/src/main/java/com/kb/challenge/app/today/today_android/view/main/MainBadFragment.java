@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+<<<<<<< HEAD
 import android.widget.RelativeLayout;
+=======
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
 import android.widget.TextView;
 
 import com.kb.challenge.app.today.today_android.R;
@@ -56,10 +59,13 @@ public class MainBadFragment extends Fragment {
     private ImageView main_bad_image;
     private TextView txt_main_bad_user_name; //유저네임 님 힘네세요
     private TextView txt_main_bad_user_name2; //유저네임 님이 행복했던 3일
+<<<<<<< HEAD
     private RelativeLayout relative_no_comfort_msg;
     private ImageView img_1;
     private int bad_status;
     public final int[] good_img = {R.drawable.img_emotion_good_3,R.drawable.img_emotion_good_2,R.drawable.img_emotion_good_1 };
+=======
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
 
     public MainBadFragment() {
         // Required empty public constructor
@@ -100,6 +106,7 @@ public class MainBadFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.main_record_bad, container, false);
 
+<<<<<<< HEAD
         relative_no_comfort_msg = (RelativeLayout)view.findViewById(R.id.relative_no_comfort_msg);
         img_1 = (ImageView)view.findViewById(R.id.img_1);
 
@@ -110,15 +117,23 @@ public class MainBadFragment extends Fragment {
         bad_status = bundle.getInt("feeling_data");
         String user_name = bundle.getString("user_name");
 
+=======
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
+
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
         mRecyclerView = (RecyclerView) view.findViewById(R.id.main_bad_recycler_view);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         txt_main_bad_user_name = (TextView)view.findViewById(R.id.txt_main_bad_user_name);
         txt_main_bad_user_name2 = (TextView)view.findViewById(R.id.txt_main_bad_user_name2);
+<<<<<<< HEAD
         txt_main_bad_user_name.setText(user_name);
         txt_main_bad_user_name2.setText(user_name);
 
+=======
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
         main_bad_image = (ImageView) view.findViewById(R.id.main_bad_image);
         getCheerupMsg();
 
@@ -176,12 +191,18 @@ public class MainBadFragment extends Fragment {
 
                     ArrayList<CheerupMsgData> cheerupMsgDataList = response.body().getData();
                     Log.v("cheerupmes",cheerupMsgDataList.size() + "");
+<<<<<<< HEAD
 
+=======
+                    CheerupMsgListAdapter cheerupMsgListAdapter = new CheerupMsgListAdapter(getActivity(),cheerupMsgDataList);
+                    mRecyclerView.setAdapter(cheerupMsgListAdapter);
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
                     if (!response.body().getComfortImg().get(0).getComfort_img().isEmpty()) {
                         Glide.with(getActivity())
                                 .load(response.body().getComfortImg().get(0).getComfort_img())
                                 .into(main_bad_image);
                     }
+<<<<<<< HEAD
                     if (cheerupMsgDataList.isEmpty()){
                         relative_no_comfort_msg.setVisibility(View.VISIBLE);
                         img_1.setBackgroundResource(good_img[bad_status]);
@@ -192,6 +213,9 @@ public class MainBadFragment extends Fragment {
                         mRecyclerView.setAdapter(cheerupMsgListAdapter);
 
                     }
+=======
+
+>>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
                 }
 
             }
