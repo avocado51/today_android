@@ -7,11 +7,13 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.kb.challenge.app.today.today_android.MainActivity;
 import com.kb.challenge.app.today.today_android.R;
+import com.kb.challenge.app.today.today_android.utils.SharedPreference;
 
 /**
  * Created by shineeseo on 2018. 11. 18..
@@ -20,9 +22,13 @@ import com.kb.challenge.app.today.today_android.R;
 public class BroadcastD extends BroadcastReceiver {
     String INTENT_ACTION = Intent.ACTION_BOOT_COMPLETED;
 
+
     @Override
     public void onReceive(Context context, Intent intent) {//알람 시간이 되었을때 onReceive를 호출함
         //NotificationManager 안드로이드 상태바에 메세지를 던지기위한 서비스 불러오고
+        SharedPreference.Companion.getInstance();
+        String user_name = SharedPreference.Companion.getInstance().getPrefStringData("user_name");
+
         Log.v("alarm!!!", "alarm!!!");
         NotificationManager notificationmanager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -38,8 +44,8 @@ public class BroadcastD extends BroadcastReceiver {
 
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId);
-        builder.setSmallIcon(R.mipmap.ic_stat_notify_white).setTicker("HETT").setWhen(System.currentTimeMillis())
-                .setNumber(1).setContentTitle("오늘은님!").setContentText("오늘 기분은 어때요? 저한테 알려주세요!")
+        builder.setSmallIcon(R.mipmap.icon_1_128px).setTicker("HETT").setWhen(System.currentTimeMillis())
+                .setNumber(1).setContentTitle(user_name + "님!").setContentText("오늘 기분은 어때요? 저한테 알려주세요!")
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingIntent).setAutoCancel(true);
 
         notificationmanager.notify(1, builder.build());

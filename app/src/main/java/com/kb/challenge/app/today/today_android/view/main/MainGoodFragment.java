@@ -227,6 +227,9 @@ public class MainGoodFragment extends Fragment {
     }
 
     public void savingMoney() {
+        if (comment.equals("")) {
+            comment = "오늘도 화이팅";
+        }
         Log.v("saving process", "saving process!!!");
         CoinSavingData coinSavingData = new CoinSavingData(Integer.parseInt(deposit_spinner.getSelectedItem().toString()), comment);
         Call<BaseModel> requestDetail = networkService.savingMoney(SharedPreference.Companion.getInstance().getPrefStringData("data"), coinSavingData);

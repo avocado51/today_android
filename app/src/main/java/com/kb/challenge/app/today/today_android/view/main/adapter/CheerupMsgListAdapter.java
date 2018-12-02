@@ -26,6 +26,7 @@ public class CheerupMsgListAdapter extends RecyclerView.Adapter<CheerupMsgListAd
 
     Context context;
     ArrayList<CheerupMsgData> cheerupMsgDataList;
+    public final int[] status_mark_img = {R.drawable.img_sns_profile_emotion_good_3_40_px,R.drawable.img_sns_profile_emotion_good_2_40_px,R.drawable.img_sns_profile_emotion_good_1_40_px };
 
     public CheerupMsgListAdapter(Context context, ArrayList<CheerupMsgData> cheerupMsgDataList) {
         super();
@@ -45,9 +46,9 @@ public class CheerupMsgListAdapter extends RecyclerView.Adapter<CheerupMsgListAd
     public void onBindViewHolder(final CheerupMsgListAdapter.ViewHolder viewHolder, int i) {
         final int pos = i;
         Log.v("communityFriendsList", cheerupMsgDataList.size() + " ");
-        viewHolder.cheerup_msg_date.setText(cheerupMsgDataList.get(i).getFeeling_at());
+        viewHolder.cheerup_msg_date.setText(cheerupMsgDataList.get(i).getToday_at());
         viewHolder.cheerup_msg_txt.setText(cheerupMsgDataList.get(i).getComment());
-
+        viewHolder.cheerup_feeling_mark.setBackgroundResource(status_mark_img[i]);
     }
 
     @Override

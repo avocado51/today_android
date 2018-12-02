@@ -62,7 +62,7 @@ public class CommunityEmotionBoxListAdapter extends RecyclerView.Adapter<Communi
         viewHolder.community_status_txt.setText(emotionBoxData.get(i).getComment());
 
         Glide.with(context)
-                .load(emotionBoxData.get(i).getProfile_url())
+                .load(emotionBoxData.get(pos).getProfile_url())
                 .into(viewHolder.community_user_img);
 
         viewHolder.community_user_img.setBackground(new ShapeDrawable(new OvalShape()));

@@ -98,7 +98,7 @@ public class CommunityFragment extends Fragment implements Init {
     private int feeling_bad = -1;
     private int feeling_good = -1;
 
-    public final static int[] profile_emotion_mark_resource = {R.drawable.img_sns_profile_emotion_bad_1_40_px, R.drawable.img_sns_profile_emotion_bad_2_40_px, R.drawable.img_sns_profile_emotion_bad_3_40_px, R.drawable.img_sns_profile_emotion_soso_0_40_px, R.drawable.img_sns_profile_emotion_good_1_40_px, R.drawable.img_sns_profile_emotion_good_2_40_px, R.drawable.img_sns_profile_emotion_good_3_40_px};
+    public final static int[] profile_emotion_mark_resource = {R.drawable.img_sns_profile_emotion_bad_3_40_px, R.drawable.img_sns_profile_emotion_bad_2_40_px, R.drawable.img_sns_profile_emotion_bad_1_40_px, R.drawable.img_sns_profile_emotion_soso_0_40_px, R.drawable.img_sns_profile_emotion_good_1_40_px, R.drawable.img_sns_profile_emotion_good_2_40_px, R.drawable.img_sns_profile_emotion_good_3_40_px};
 
 
     @Override
@@ -387,14 +387,14 @@ public class CommunityFragment extends Fragment implements Init {
 
 
                     } else if (feelingDataList.get(feelingDataList.size() - 1).getBad() != null) {
-                        feeling_bad = profile_emotion_mark_resource.length - feelingDataList.get(feelingDataList.size() - 1).getBad() - 3;
-                        Log.v("feeling data bad", profile_emotion_mark_resource.length - feelingDataList.get(feelingDataList.size() - 1).getBad() - 3 + "");
+                        feeling_bad = 6 - feelingDataList.get(feelingDataList.size() - 1).getBad() - 3;
+                        Log.v("feeling data bad",  feeling_bad + "");
                         community_my_profile_emotion_mark.setBackgroundResource(profile_emotion_mark_resource[feeling_bad]);
                         community_my_profil_status_txt.setText(feelingDataList.get(feelingDataList.size() - 1).getComment());
                     } else if (feelingDataList.get(feelingDataList.size() - 1).getGood() != null) {
                         feeling_good = feelingDataList.get(feelingDataList.size() - 1).getGood() + 3;
-                        Log.v("feeling data good", feelingDataList.get(feelingDataList.size() - 1).getGood() + 3 + "");
-                        community_my_profile_emotion_mark.setBackgroundResource(profile_emotion_mark_resource[feelingDataList.get(feelingDataList.size() - 1).getGood() + 3]);
+                        Log.v("feeling data good", feeling_good + "");
+                        community_my_profile_emotion_mark.setBackgroundResource(profile_emotion_mark_resource[feeling_good]);
                         community_my_profil_status_txt.setText(feelingDataList.get(feelingDataList.size() - 1).getComment());
                     }
                 }
@@ -427,30 +427,28 @@ public class CommunityFragment extends Fragment implements Init {
 
                         Log.v("friendsProfileDataList", friendsProfileDataList.toString());
 
-                        if (friendsList != null) {
-                            for (int i = 0; i < friendsList.size(); i++) {
-                                for (int j = 0; j < friendsProfileDataList.size(); j++) {
-                                    if (friendsList.get(i).getId().equals(friendsProfileDataList.get(j).getId())) {
-                                        if (friendsProfileDataList.get(j).getGood() != null)
-                                            friendsList.get(i).setGood(friendsProfileDataList.get(j).getGood());
-                                        else if (friendsProfileDataList.get(j).getBad() != null)
-                                            friendsList.get(i).setBad(friendsProfileDataList.get(j).getBad());
-                                        if (friendsProfileDataList.get(j).getComment() != null)
-                                            friendsList.get(i).setComment(friendsProfileDataList.get(j).getComment());
-                                    }
-                                }
+//                        if (friendsList != null) {
+//                            for (int i = 0; i < friendsList.size(); i++) {
+//                                for (int j = 0; j < friendsProfileDataList.size(); j++) {
+//                                    if (friendsList.get(i).getId().equals(friendsProfileDataList.get(j).getId())) {
+//                                        if (friendsProfileDataList.get(j).getGood() != null)
+//                                            friendsList.get(i).setGood(friendsProfileDataList.get(j).getGood());
+//                                        else if (friendsProfileDataList.get(j).getBad() != null)
+//                                            friendsList.get(i).setBad(friendsProfileDataList.get(j).getBad());
+//                                        if (friendsProfileDataList.get(j).getComment() != null)
+//                                            friendsList.get(i).setComment(friendsProfileDataList.get(j).getComment());
+//                                    }
+//                                }
+//                            }
+//                        }
+
+                        for (int i = 0; i < friendsProfileDataList.size(); i++) {
+                            if (friendsProfileDataList.get(i).getBad() == null && friendsProfileDataList.get(i).getGood() == null) {
+                                friendsProfileDataList.remove(i);
                             }
                         }
 
-                        Log.v("friends list", friendsList.toString());
-
-                        for (int i = 0; i < friendsList.size(); i++) {
-                            if (friendsList.get(i).getBad() == null && friendsList.get(i).getGood() == null) {
-                                friendsList.remove(i);
-                            }
-                        }
-
-                        CommunityFriendListAdapter communityFriendListAdapter = new CommunityFriendListAdapter(getActivity(), friendsList);
+                        CommunityFriendListAdapter communityFriendListAdapter = new CommunityFriendListAdapter(getActivity(), friendsProfileDataList);
 
                         mRecyclerView.setAdapter(communityFriendListAdapter);
                     }

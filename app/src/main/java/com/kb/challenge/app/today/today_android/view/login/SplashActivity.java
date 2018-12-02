@@ -20,7 +20,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         SharedPreference.Companion.getInstance().load(this);
         if (SharedPreference.Companion.getInstance().getPrefStringData("data").isEmpty()) {
-            intent = new Intent(this,LoginActivity.class);
+            intent = new Intent(this,FirstActivity.class);
         }
         else {
             Log.v("token 존재", SharedPreference.Companion.getInstance().getPrefStringData("data"));

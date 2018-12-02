@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kb.challenge.app.today.today_android.R;
@@ -55,6 +56,10 @@ public class MainBadFragment extends Fragment {
     private ImageView main_bad_image;
     private TextView txt_main_bad_user_name; //유저네임 님 힘네세요
     private TextView txt_main_bad_user_name2; //유저네임 님이 행복했던 3일
+    private RelativeLayout relative_no_comfort_msg;
+    private ImageView img_1;
+    private int bad_status;
+    public final int[] good_img = {R.drawable.img_emotion_good_3,R.drawable.img_emotion_good_2,R.drawable.img_emotion_good_1 };
 
     public MainBadFragment() {
         // Required empty public constructor
@@ -95,8 +100,15 @@ public class MainBadFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.main_record_bad, container, false);
 
+        relative_no_comfort_msg = (RelativeLayout)view.findViewById(R.id.relative_no_comfort_msg);
+        img_1 = (ImageView)view.findViewById(R.id.img_1);
+
         networkService = ApplicationController.Companion.getInstance().getNetworkService();
         SharedPreference.Companion.getInstance();
+
+        Bundle bundle = getArguments();
+        bad_status = bundle.getInt("feeling_data");
+        String user_name = bundle.getString("user_name");
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.main_bad_recycler_view);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -104,6 +116,9 @@ public class MainBadFragment extends Fragment {
 
         txt_main_bad_user_name = (TextView)view.findViewById(R.id.txt_main_bad_user_name);
         txt_main_bad_user_name2 = (TextView)view.findViewById(R.id.txt_main_bad_user_name2);
+        txt_main_bad_user_name.setText(user_name);
+        txt_main_bad_user_name2.setText(user_name);
+
         main_bad_image = (ImageView) view.findViewById(R.id.main_bad_image);
         getCheerupMsg();
 
@@ -161,14 +176,22 @@ public class MainBadFragment extends Fragment {
 
                     ArrayList<CheerupMsgData> cheerupMsgDataList = response.body().getData();
                     Log.v("cheerupmes",cheerupMsgDataList.size() + "");
-                    CheerupMsgListAdapter cheerupMsgListAdapter = new CheerupMsgListAdapter(getActivity(),cheerupMsgDataList);
-                    mRecyclerView.setAdapter(cheerupMsgListAdapter);
+
                     if (!response.body().getComfortImg().get(0).getComfort_img().isEmpty()) {
                         Glide.with(getActivity())
                                 .load(response.body().getComfortImg().get(0).getComfort_img())
                                 .into(main_bad_image);
                     }
+                    if (cheerupMsgDataList.isEmpty()){
+                        relative_no_comfort_msg.setVisibility(View.VISIBLE);
+                        img_1.setBackgroundResource(good_img[bad_status]);
+                    }
+                    else {
+                        relative_no_comfort_msg.setVisibility(View.GONE);
+                        CheerupMsgListAdapter cheerupMsgListAdapter = new CheerupMsgListAdapter(getActivity(),cheerupMsgDataList);
+                        mRecyclerView.setAdapter(cheerupMsgListAdapter);
 
+                    }
                 }
 
             }

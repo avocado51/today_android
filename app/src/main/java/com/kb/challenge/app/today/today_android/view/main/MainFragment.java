@@ -204,7 +204,7 @@ public class MainFragment extends Fragment implements Init {
                 Fragment fragment = new RecordFeelingFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("user_name", user_name);
-                Log.v("feeling record로 이동", user_name);
+
                 fragment.setArguments(bundle);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.root_frame, fragment);
@@ -259,7 +259,7 @@ public class MainFragment extends Fragment implements Init {
                     Log.v("name", user_name);
                     if (user_name != null)
                         main_name_txt.setText(user_name);
-
+                    SharedPreference.Companion.getInstance().setPrefData("user_name", user_name);
 
                 }
                 else {
@@ -328,6 +328,9 @@ public class MainFragment extends Fragment implements Init {
                             transaction.commit();
 
                         }
+                    }
+                    else {
+                        show_record_feeling_dialog();
                     }
                 }
             }

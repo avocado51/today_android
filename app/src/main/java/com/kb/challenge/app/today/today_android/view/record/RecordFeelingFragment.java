@@ -242,13 +242,13 @@ public class RecordFeelingFragment extends Fragment {
             case 0:
             case 1:
             case 2:
-                feelingData = new FeelingData(null, seekBar.getMax() - progress_status - 3, feelingMsg[seekBar.getMax() - progress_status - 3]);
+                feelingData = new FeelingData(null, seekBar.getMax() - progress_status - 3, feelingMsg[progress_status]);
                 break;
             case 3:
             case 4:
             case 5:
             case 6:
-                feelingData = new FeelingData(progress_status - 3, null, feelingMsg[progress_status - 3]);
+                feelingData = new FeelingData(progress_status - 3, null, feelingMsg[progress_status]);
                 break;
 
         }
@@ -267,6 +267,7 @@ public class RecordFeelingFragment extends Fragment {
                         if (progress_status < 3) {
                             Fragment fragment = new MainBadFragment();
                             Bundle bundle = new Bundle();
+                            bundle.putInt("feeling_data", progress_status);
                             bundle.putString("user_name", user_name);
                             fragment.setArguments(bundle);
                             FragmentTransaction transaction = getFragmentManager().beginTransaction();

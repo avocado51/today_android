@@ -46,7 +46,7 @@ public class CommunityFriendListAdapter extends RecyclerView.Adapter<CommunityFr
     private String id;
     private String comment;
 
-    public final static int[] emotion_mark_resource = {R.drawable.img_sns_emotion_bad_3_20_px,R.drawable.img_sns_emotion_bad_2_20_px,R.drawable.img_sns_emotion_bad_1_20_px,R.drawable.img_sns_emotion_soso_0_20_px,R.drawable.img_sns_emotion_good_1_20_px,R.drawable.img_sns_emotion_good_2_20_px,R.drawable.img_sns_emotion_good_3_20_px };
+    public final static int[] emotion_mark_resource = {R.drawable.img_sns_emotion_bad_3_20_px, R.drawable.img_sns_emotion_bad_2_20_px, R.drawable.img_sns_emotion_bad_1_20_px, R.drawable.img_sns_emotion_soso_0_20_px, R.drawable.img_sns_emotion_good_1_20_px, R.drawable.img_sns_emotion_good_2_20_px, R.drawable.img_sns_emotion_good_3_20_px};
 
     @Override
     public void init() {
@@ -70,6 +70,7 @@ public class CommunityFriendListAdapter extends RecyclerView.Adapter<CommunityFr
         CommunityFriendListAdapter.ViewHolder viewHolder = new CommunityFriendListAdapter.ViewHolder(v);
         return viewHolder;
     }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(CommunityFriendListAdapter.ViewHolder viewHolder, int i) {
@@ -80,17 +81,20 @@ public class CommunityFriendListAdapter extends RecyclerView.Adapter<CommunityFr
                 .into(viewHolder.community_user_img);
 
         viewHolder.community_user_img.setBackground(new ShapeDrawable(new OvalShape()));
-        if(Build.VERSION.SDK_INT >= 21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             viewHolder.community_user_img.setClipToOutline(true);
         }
 
         viewHolder.community_user_id_txt.setText(friendsProfileDataList.get(i).getName());
         viewHolder.community_status_txt.setText(friendsProfileDataList.get(i).getComment());
-        if (friendsProfileDataList.get(i).getBad()!= null)
-            viewHolder.community_emotion_mark.setBackgroundResource(emotion_mark_resource[emotion_mark_resource.length-friendsProfileDataList.get(i).getBad()-3]);
-        else if (friendsProfileDataList.get(i).getGood()!= null)
-            viewHolder.community_emotion_mark.setBackgroundResource(emotion_mark_resource[friendsProfileDataList.get(i).getGood()+3]);
+        if (friendsProfileDataList.get(i).getBad() != null) {
+            Log.v("friendlist adapter", friendsProfileDataList.get(i).getBad() + "" + (6 - friendsProfileDataList.get(i).getBad() - 3));
+            viewHolder.community_emotion_mark.setBackgroundResource(emotion_mark_resource[6 - friendsProfileDataList.get(pos).getBad() - 3]);
 
+        } else if (friendsProfileDataList.get(i).getGood() != null) {
+            Log.v("friendlist adapter", friendsProfileDataList.get(i).getGood() + "" + (friendsProfileDataList.get(i).getGood() + 3));
+            viewHolder.community_emotion_mark.setBackgroundResource(emotion_mark_resource[friendsProfileDataList.get(pos).getGood() + 3]);
+        }
         viewHolder.community_profile_btn_msg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,24 +102,23 @@ public class CommunityFriendListAdapter extends RecyclerView.Adapter<CommunityFr
                 send_Cheerup_Msg_Dialog.setContentView(R.layout.dialog_cheerup_msg);
                 send_Cheerup_Msg_Dialog.setTitle("cheerup Dialog");
 
-                final EditText edit_cheerup_msg = (EditText)send_Cheerup_Msg_Dialog.findViewById(R.id.edit_cheerup_msg);
+                final EditText edit_cheerup_msg = (EditText) send_Cheerup_Msg_Dialog.findViewById(R.id.edit_cheerup_msg);
 
-                TextView txt_dialog_cheerup_name = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.txt_dialog_cheerup_name);
+                TextView txt_dialog_cheerup_name = (TextView) send_Cheerup_Msg_Dialog.findViewById(R.id.txt_dialog_cheerup_name);
 
                 id = friendsProfileDataList.get(pos).getId();
 
                 txt_dialog_cheerup_name.setText(friendsProfileDataList.get(pos).getName());
 
-                TextView txt_dialog_cheerup_feeling = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.txt_dialog_cheerup_feeling);
+                TextView txt_dialog_cheerup_feeling = (TextView) send_Cheerup_Msg_Dialog.findViewById(R.id.txt_dialog_cheerup_feeling);
 
-                if (friendsProfileDataList.get(pos).getBad()!= null) {
+                if (friendsProfileDataList.get(pos).getBad() != null) {
                     txt_dialog_cheerup_feeling.setText("기분이 안 좋아요");
-                }
-                else if (friendsProfileDataList.get(pos).getGood()!= null) {
+                } else if (friendsProfileDataList.get(pos).getGood() != null) {
                     txt_dialog_cheerup_feeling.setText("기분이 좋아요!");
                 }
 
-                TextView btn_cancel_dialog_cheerup = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.btn_cancel_dialog_cheerup);
+                TextView btn_cancel_dialog_cheerup = (TextView) send_Cheerup_Msg_Dialog.findViewById(R.id.btn_cancel_dialog_cheerup);
 
                 btn_cancel_dialog_cheerup.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -124,7 +127,7 @@ public class CommunityFriendListAdapter extends RecyclerView.Adapter<CommunityFr
                     }
                 });
 
-                TextView btn_send_dialog_cheerup = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.btn_send_dialog_cheerup);
+                TextView btn_send_dialog_cheerup = (TextView) send_Cheerup_Msg_Dialog.findViewById(R.id.btn_send_dialog_cheerup);
 
                 btn_send_dialog_cheerup.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -155,17 +158,18 @@ public class CommunityFriendListAdapter extends RecyclerView.Adapter<CommunityFr
 
         public ViewHolder(View itemView) {
             super(itemView);
-            community_emotion_mark = (ImageView)itemView.findViewById(R.id.community_emotion_mark);
-            community_user_img = (ImageView)itemView.findViewById(R.id.community_user_img);
+            community_emotion_mark = (ImageView) itemView.findViewById(R.id.community_emotion_mark);
+            community_user_img = (ImageView) itemView.findViewById(R.id.community_user_img);
             community_user_id_txt = (TextView) itemView.findViewById(R.id.community_user_id_txt);
             community_status_txt = (TextView) itemView.findViewById(R.id.community_status_txt);
             community_profile_btn_msg = (ImageView) itemView.findViewById(R.id.community_profile_btn_msg);
         }
     }
+
     public void sendEmotionMsg() {
         Log.v("sendEmotionMsg process", "sendEmotionMsg process!!!");
-        SendEmotionData sendEmotionData = new SendEmotionData(id,comment);
-        Call<BaseModel> requestDetail = networkService.sendEmotionBox(SharedPreference.Companion.getInstance().getPrefStringData("data"),sendEmotionData);
+        SendEmotionData sendEmotionData = new SendEmotionData(id, comment);
+        Call<BaseModel> requestDetail = networkService.sendEmotionBox(SharedPreference.Companion.getInstance().getPrefStringData("data"), sendEmotionData);
         requestDetail.enqueue(new Callback<BaseModel>() {
             @Override
             public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {

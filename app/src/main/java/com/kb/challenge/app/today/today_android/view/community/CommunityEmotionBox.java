@@ -118,89 +118,6 @@ public class CommunityEmotionBox extends Fragment implements Init {
         });
 
 
-
-        final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
-
-            //누르고 뗄 때 한번만 인식하도록 하기위해서
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return true;
-            }
-        });
-
-        onItemTouchListener = new RecyclerView.OnItemTouchListener() {
-
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                //손으로 터치한 곳의 좌표를 토대로 해당 Item의 View를 가져옴
-                View childView = rv.findChildViewUnder(e.getX(), e.getY());
-
-                //터치한 곳의 View가 RecyclerView 안의 아이템이고 그 아이템의 View가 null이 아니라
-                //정확한 Item의 View를 가져왔고, gestureDetector에서 한번만 누르면 true를 넘기게 구현했으니
-                //한번만 눌려서 그 값이 true가 넘어왔다면
-                if (childView != null && gestureDetector.onTouchEvent(e)) {
-
-                    //현재 터치된 곳의 position을 가져오고
-                    int currentPosition = rv.getChildAdapterPosition(childView);
-                    Log.v("current position", currentPosition + "");
-
-                    //위로의 메시지를 담은 다이얼로그 띄우기
-                    final Dialog send_Cheerup_Msg_Dialog = new Dialog(getActivity());
-                    send_Cheerup_Msg_Dialog.setContentView(R.layout.dialog_cheerup_msg);
-                    send_Cheerup_Msg_Dialog.setTitle("cheerup Dialog");
-
-                    final EditText edit_cheerup_msg = (EditText)send_Cheerup_Msg_Dialog.findViewById(R.id.edit_cheerup_msg);
-
-                    TextView txt_dialog_cheerup_name = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.txt_dialog_cheerup_name);
-
-                    String from_id = emotionBoxList.get(currentPosition).getFrom_id();
-
-                    txt_dialog_cheerup_name.setText(emotionBoxList.get(currentPosition).getName());
-
-                    TextView txt_dialog_cheerup_hello = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.txt_dialog_cheerup_hello);
-
-                    txt_dialog_cheerup_hello.setText("님이 보낸");
-
-                    TextView txt_dialog_cheerup_feeling = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.txt_dialog_cheerup_feeling);
-
-                    txt_dialog_cheerup_feeling.setText("위로의 메시지");
-
-                    TextView btn_cancel_dialog_cheerup = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.btn_cancel_dialog_cheerup);
-
-
-                    btn_cancel_dialog_cheerup.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            send_Cheerup_Msg_Dialog.dismiss();
-                        }
-                    });
-
-                    TextView btn_send_dialog_cheerup = (TextView)send_Cheerup_Msg_Dialog.findViewById(R.id.btn_send_dialog_cheerup);
-
-                    btn_send_dialog_cheerup.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            send_Cheerup_Msg_Dialog.dismiss();
-                        }
-                    });
-
-                    send_Cheerup_Msg_Dialog.show();
-                    return true;
-                }
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        };
-
         return view;
 
     }
@@ -243,7 +160,7 @@ public class CommunityEmotionBox extends Fragment implements Init {
         String getTime = sdf.format(date);
 
         Log.v("getEmotionBoxList", "getEmotionBoxList process!!!");
-        Call<EmotionBoxResponse> requestDetail = networkService.getEmotionBoxList(SharedPreference.Companion.getInstance().getPrefStringData("data"), "2018-11-17");
+        Call<EmotionBoxResponse> requestDetail = networkService.getEmotionBoxList(SharedPreference.Companion.getInstance().getPrefStringData("data"), getTime);
         requestDetail.enqueue(new Callback<EmotionBoxResponse>() {
             @Override
             public void onResponse(Call<EmotionBoxResponse> call, Response<EmotionBoxResponse> response) {
@@ -252,13 +169,11 @@ public class CommunityEmotionBox extends Fragment implements Init {
                     Log.v("emotion message", response.body().getMessage().toString());
 
                     final ArrayList<EmotionBoxData> emotionBoxList = response.body().getData();
+                    Log.v("emotionBoxList", emotionBoxList.toString());
                     if (emotionBoxList != null) {
 
                         CommunityEmotionBoxListAdapter communityEmotionBoxListAdapter = new CommunityEmotionBoxListAdapter(getActivity(), emotionBoxList);
                         mRecyclerView.setAdapter(communityEmotionBoxListAdapter);
-
-                        mRecyclerView.addOnItemTouchListener(onItemTouchListener);
-
 
 
                     }

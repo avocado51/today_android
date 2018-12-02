@@ -19,6 +19,8 @@ import com.kb.challenge.app.today.today_android.R;
 import com.kb.challenge.app.today.today_android.base.BaseModel;
 import com.kb.challenge.app.today.today_android.model.community.FollowListResponse;
 import com.kb.challenge.app.today.today_android.model.community.FollowerData;
+import com.kb.challenge.app.today.today_android.model.community.FollowingData;
+import com.kb.challenge.app.today.today_android.model.community.FollowingListResponse;
 import com.kb.challenge.app.today.today_android.network.ApplicationController;
 import com.kb.challenge.app.today.today_android.network.NetworkService;
 import com.kb.challenge.app.today.today_android.utils.Init;
@@ -77,7 +79,7 @@ public class CommunityUserFragment extends Fragment implements Init {
         community_follow_btn= view.findViewById(R.id.community_follow_btn);
         community_following_btn= view.findViewById(R.id.community_following_btn);
 
-        getFollowerList();
+
 
         Bundle bundle = getArguments();
 
@@ -85,6 +87,8 @@ public class CommunityUserFragment extends Fragment implements Init {
         community_user_id_txt.setText(bundle.getString("userId"));
 
         user_id = community_user_id_txt.getText().toString();
+
+        getFollowingList();
 
         Glide.with(getActivity())
                 .load(bundle.getString("profile_url"))
@@ -181,27 +185,28 @@ public class CommunityUserFragment extends Fragment implements Init {
         });
     }
 
-    public void getFollowerList() {
+    public void getFollowingList() {
         Log.v("getFollowerList process", "getFollowerList process!!!");
-        Call<FollowListResponse> requestDetail = networkService.getFollowerList(SharedPreference.Companion.getInstance().getPrefStringData("data"));
-        requestDetail.enqueue(new Callback<FollowListResponse>() {
+        Call<FollowingListResponse> requestDetail = networkService.getFollowingList(SharedPreference.Companion.getInstance().getPrefStringData("data"));
+        requestDetail.enqueue(new Callback<FollowingListResponse>() {
             @Override
-            public void onResponse(Call<FollowListResponse> call, Response<FollowListResponse> response) {
+            public void onResponse(Call<FollowingListResponse> call, Response<FollowingListResponse> response) {
                 if (response.isSuccessful()) {
                     Log.v("getFollowerList", "getFollowerList process2!!!");
                     Log.v("message", response.body().getMessage().toString());
 
                     if (response.body().getMessage().toString().equals("success")) {
-                        followerDataList = response.body().getData();
-                        Log.v("followerDataList", followerDataList.toString());
+                        ArrayList<FollowingData> followingList = response.body().getData();
+                        Log.v("followingList", followingList.toString());
                         //profile_img, id, name
 
-                        for (int i= 0; i < followerDataList.size(); i++) {
-                            if (followerDataList.get(i).getId().equals(user_id))
+                        for (int i= 0; i < followingList.size(); i++) {
+                            if (followingList.get(i).getId().equals(user_id))
                                 flag = 1;
                         }
-                        Log.v("flagggg", flag + "");
+                        Log.v("flagggg", flag + "" + user_id);
                         if (flag == 1) {
+
                             community_follow_btn.setVisibility(View.INVISIBLE);
                             community_following_btn.setVisibility(View.VISIBLE);
 
@@ -213,7 +218,7 @@ public class CommunityUserFragment extends Fragment implements Init {
             }
 
             @Override
-            public void onFailure(Call<FollowListResponse> call, Throwable t) {
+            public void onFailure(Call<FollowingListResponse> call, Throwable t) {
                 Log.i("err", t.getMessage());
             }
         });
