@@ -5,19 +5,11 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.kb.challenge.app.today.today_android"
-<<<<<<< HEAD
-        minSdkVersion 19
-=======
         minSdkVersion 23
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-<<<<<<< HEAD
-        multiDexEnabled true
-=======
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
     }
     buildTypes {
         release {
@@ -46,11 +38,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:9.2.1'
     implementation 'com.google.firebase:firebase-auth:16.0.2'
     implementation 'com.google.firebase:firebase-core:16.0.1'
-<<<<<<< HEAD
-    compile 'com.android.support:multidex:1.0.3'
-
-=======
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
 }
 
 apply plugin: 'com.google.gms.google-services'
