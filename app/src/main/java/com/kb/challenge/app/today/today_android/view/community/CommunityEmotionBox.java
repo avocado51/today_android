@@ -117,10 +117,6 @@ public class CommunityEmotionBox extends Fragment implements Init {
             }
         });
 
-
-<<<<<<< HEAD
-=======
-
         final GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
 
             //누르고 뗄 때 한번만 인식하도록 하기위해서
@@ -203,7 +199,6 @@ public class CommunityEmotionBox extends Fragment implements Init {
             }
         };
 
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
         return view;
 
     }
@@ -246,11 +241,9 @@ public class CommunityEmotionBox extends Fragment implements Init {
         String getTime = sdf.format(date);
 
         Log.v("getEmotionBoxList", "getEmotionBoxList process!!!");
-<<<<<<< HEAD
+
         Call<EmotionBoxResponse> requestDetail = networkService.getEmotionBoxList(SharedPreference.Companion.getInstance().getPrefStringData("data"), getTime);
-=======
-        Call<EmotionBoxResponse> requestDetail = networkService.getEmotionBoxList(SharedPreference.Companion.getInstance().getPrefStringData("data"), "2018-11-17");
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
+
         requestDetail.enqueue(new Callback<EmotionBoxResponse>() {
             @Override
             public void onResponse(Call<EmotionBoxResponse> call, Response<EmotionBoxResponse> response) {
@@ -259,21 +252,12 @@ public class CommunityEmotionBox extends Fragment implements Init {
                     Log.v("emotion message", response.body().getMessage().toString());
 
                     final ArrayList<EmotionBoxData> emotionBoxList = response.body().getData();
-<<<<<<< HEAD
-                    Log.v("emotionBoxList", emotionBoxList.toString());
-=======
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
+
                     if (emotionBoxList != null) {
 
                         CommunityEmotionBoxListAdapter communityEmotionBoxListAdapter = new CommunityEmotionBoxListAdapter(getActivity(), emotionBoxList);
                         mRecyclerView.setAdapter(communityEmotionBoxListAdapter);
-
-<<<<<<< HEAD
-=======
                         mRecyclerView.addOnItemTouchListener(onItemTouchListener);
-
-
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
 
                     }
                 }

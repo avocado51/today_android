@@ -13,11 +13,9 @@
         android:id="@+id/cheerup_feeling_mark"
         android:layout_width="40dp"
         android:layout_height="40dp"
-<<<<<<< HEAD
+
         android:background="@drawable/img_sns_profile_emotion_good_2_40_px"
-=======
-        android:src="@drawable/img_sns_profile_emotion_good_2_40_px"
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
+
         />
 
     <TextView
@@ -29,11 +27,8 @@
         android:letterSpacing="-0.02"
         tools:text="2018년 11월 16일"
         android:textColor="#c9c9c9"
-<<<<<<< HEAD
         android:textSize="11sp"
-=======
-        android:textSize="10sp"
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
+
         android:layout_marginLeft="8dp"/>
     <TextView
         android:backgroundTint="#f5f5f5"

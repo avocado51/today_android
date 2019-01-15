@@ -75,11 +75,9 @@ public class CommunityFollowerListAdapter extends RecyclerView.Adapter<Community
                 .into(viewHolder.community_following_img);
 
         //맞팔일 경우!
-<<<<<<< HEAD
+
         if (communityFollowingList.get(pos).getFollowing() == 1) {
-=======
-        if (communityFollowingList.get(pos).getFollowing()) {
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
+
             //팔로우 버튼 비활성화
             viewHolder.community_btn_follow.setVisibility(View.GONE);
             //팔로잉 버튼 활성화

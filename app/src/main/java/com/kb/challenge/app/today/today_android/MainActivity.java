@@ -7,17 +7,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-<<<<<<< HEAD
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-=======
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
+
 
 import com.kb.challenge.app.today.today_android.model.push.PushTimeData;
 import com.kb.challenge.app.today.today_android.network.ApplicationController;
@@ -79,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         if (getFragmentManager().getBackStackEntryCount() != 0)
             getFragmentManager().popBackStack();
         else {
-<<<<<<< HEAD
+
             if (System.currentTimeMillis() > (backKeyPressedTime + 2000)) {
                 backKeyPressedTime = System.currentTimeMillis();
                 Toast toast = Toast.makeText(getApplicationContext(),"\'뒤로 가기\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
@@ -92,9 +88,6 @@ public class MainActivity extends AppCompatActivity
                 this.finish();
 
             }
-=======
-            super.onBackPressed();
->>>>>>> 591354f86d759d4fc80165b174d14ce49bdee29e
         }
 
     }
